@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Pokemon } from "../Pokemon";
 interface PokemonDetail {
   pokemon: Pokemon;
@@ -8,17 +8,15 @@ interface PokemonDetail {
 
 const PokemonCard = ({ pokemon }: PokemonDetail) => {
   const [isClicked, setIsClicked] = useState(0);
-  const handleClick = () => {
-    setIsClicked(1 - isClicked);
-  };
+
+  // const handleClick = () => {
+  //   setIsClicked(1 - isClicked);
+  // };
   return (
     <>
       <div className="container col-sm-6 col-md-6 col-lg-3 my-2">
-        <div
-          className="card mx-3"
-          style={{ width: "18rem"}}
-        >
-          <Link to={"/pokemons"} state={pokemon}>
+        <div className="card mx-3" style={{ width: "18rem" }}>
+          <Link to={`/pokemons/${pokemon.id}`} state={pokemon}>
             <img
               className="card-img-top"
               src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`}
@@ -27,17 +25,6 @@ const PokemonCard = ({ pokemon }: PokemonDetail) => {
           </Link>
           <div className="card-body">
             <h5 className="card-title">{pokemon.name}</h5>
-            <button className="btn btn-primary" onClick={handleClick}>
-              Show Details
-            </button>
-            {isClicked ? (
-              <div>
-                <p>Color: </p>
-                <p>Power: </p>
-              </div>
-            ) : (
-              ""
-            )}
           </div>
         </div>
       </div>

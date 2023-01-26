@@ -3,46 +3,33 @@ import { createBrowserRouter, Link } from "react-router-dom";
 import PokemonDetails from "./components/PokemonCard";
 import { Http } from "./Http";
 import { Pokemon } from "./Pokemon";
-// import { pokemonList } from "./Pokemon";
+import { useFetchCustomAPI as usePokemonsApi } from "./PokemonApi";
 
 const App = () => {
-  const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
+  const { pokemon, error, isloading } = usePokemonsApi();
 
-  const HttpHandler = async () => {
-    try {
-      const res = await Http();
-      setPokemonList(res);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    HttpHandler();
-  }, [pokemonList]);
-
-  const handleClick = () => {
-    setPokemonList([]);
-  };
+  // const handleClick = () => {
+  //   setPokemonList([]);
+  // };
 
   return (
     <div className="container my-4 " style={{ justifyContent: "center" }}>
       <div className="row">
-        {pokemonList.length > 0 ? (
-          pokemonList.map((pokemon) => (
+        {pokemon && pokemon.length > 0 ? (
+          pokemon.map((pokemon) => (
             <PokemonDetails key={pokemon.id} pokemon={pokemon} />
           ))
         ) : (
           <div> Loading.... </div>
         )}
-        <button
+        {/* <button
           className="btn btn-success my-2"
           style={{ width: "80px" }}
           type="button"
           onClick={handleClick}
         >
           Refresh
-        </button>
+        </button> */}
       </div>
     </div>
   );

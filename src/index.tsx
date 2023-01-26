@@ -6,27 +6,24 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import PokemonDetails from "./components/PokemonDetails";
 import ErrorPage from "./components/ErrorPage";
-import PokemonDetailsWithId from './components/PokemonDetailsWithId';
+import PokemonDetailsWithId from "./components/PokemonDetailsWithId";
+import HomePage from "./components/HomePage";
 const router = createBrowserRouter([
   {
     path: "/",
-    errorElement:<ErrorPage/>,
+    element: <HomePage />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "",
         element: <App />,
       },
-      {
-        path: "pokemons",
-        element: <PokemonDetails />,
-        errorElement: <ErrorPage/>
-      },
-
+      
       {
         path: "pokemons/:Id",
-        element: <PokemonDetailsWithId/>,
-        errorElement: <ErrorPage/>
-      }
+        element: <PokemonDetails />,
+        errorElement: <ErrorPage />,
+      },
     ],
   },
 ]);
