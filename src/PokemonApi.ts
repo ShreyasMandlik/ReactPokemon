@@ -11,7 +11,7 @@ export const useFetchCustomAPI = ()=>{
     const [isloading, setIsLoading] = useState<boolean>(true);
     
     useEffect(()=>{
-        axios.get("https://pokeapi.co/api/v2/pokemon/?limit=100").then(({data: data})=>{
+        axios.get("https://pokeapi.co/api/v2/pokemon/?limit=1200").then(({data: data})=>{
         const pokemons:Pokemon[]=data.results.map((pokemon:any,index:number):Pokemon=>{
         return{
             id:index+1,

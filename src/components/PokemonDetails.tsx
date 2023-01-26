@@ -1,26 +1,19 @@
 import React, { useEffect, useState } from "react";
-import {  useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { fetchpokemon } from "../Http";
 import { Pokemon } from "./../Pokemon";
 import { useParams } from "react-router-dom";
+import { useSinglePokemonApi } from "../PokemonDetailsApi";
 
 const PokemonDetails = () => {
-  
   const params: any = useParams();
-  const [pokemon, setPokemon] = useState<Pokemon | undefined>(undefined);
-  const fetchapi = async () => {
-    const res: Pokemon = await fetchpokemon(params.Id);
-    setPokemon(res);
-  };
+  // console.log(params);
+  const { pokemon, error, isLoading } = useSinglePokemonApi(params.Id);
 
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   function goback() {
     navigate(-1);
   }
-
-  useEffect(() => {
-    fetchapi();
-  }, [params.Id]);
 
   return pokemon ? (
     <div className="text-center">
